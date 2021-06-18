@@ -197,7 +197,6 @@ public class LocaleUtils {
 	 *            - an array of arguments to be used in the message, uses OGNL
 	 *            syntax
 	 * @return found and formatted message
-	 * @throws KeyNotFoundException
 	 */
 	public String getText(final String key, final Object... arguments) {
 		return getText(key, getBundle(), arguments);

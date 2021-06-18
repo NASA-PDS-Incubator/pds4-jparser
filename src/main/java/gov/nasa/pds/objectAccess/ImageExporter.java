@@ -142,8 +142,7 @@ public abstract class ImageExporter extends ObjectExporter {
    * Parse the label.
    * 
    * @param label The label file.
-   * @param fileAreaIndex The index of the File_Area_Observational element
-   *  that contains the image to export.
+   * @param dataFile data file
    *  
    * @throws Exception If an error occurred while parsing the label.
    */
