@@ -91,7 +91,7 @@ public class Label {
 
 	private ObjectAccess oa;
 	private URL parentDir;
-	public Product genericProduct;
+	private Product genericProduct;
 	private LabelStandard standard;
 
 	private Label(File labelFile) throws ParseException, MalformedURLException {
