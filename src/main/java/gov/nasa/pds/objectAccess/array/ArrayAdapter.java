@@ -73,7 +73,7 @@ public class ArrayAdapter {
 	 * @param row the row
 	 * @param column the column
 	 * @return the element value, as an int
-	 * @throws IOException 
+	 * @throws IOException an exception
 	 */
 	public int getInt(int row, int column) throws IOException {
 		return getInt(new int[] {row, column});
@@ -85,7 +85,7 @@ public class ArrayAdapter {
 	 * @param row the row
 	 * @param column the column
 	 * @return the element value, as a long
-	 * @throws IOException 
+	 * @throws IOException an exception
 	 */
 	public long getLong(int row, int column) throws IOException {
 		return getLong(new int[] {row, column});
@@ -97,7 +97,7 @@ public class ArrayAdapter {
 	 * @param row the row
 	 * @param column the column
 	 * @return the element value, as a double
-	 * @throws IOException 
+	 * @throws IOException an exception
 	 */
 	public double getDouble(int row, int column) throws IOException {
 		return getDouble(new int[] {row, column});
@@ -110,7 +110,7 @@ public class ArrayAdapter {
 	 * @param i2 the second index
 	 * @param i3 the third index
 	 * @return the element value, as an int
-	 * @throws IOException 
+	 * @throws IOException an exception
 	 */
 	public int getInt(int i1, int i2, int i3) throws IOException {
 		return getInt(new int[] {i1, i2, i3});
@@ -123,7 +123,7 @@ public class ArrayAdapter {
 	 * @param i2 the second index
 	 * @param i3 the third index
 	 * @return the element value, as a long
-	 * @throws IOException 
+	 * @throws IOException an exception
 	 */
 	public long getLong(int i1, int i2, int i3) throws IOException {
 		return getLong(new int[] {i1, i2, i3});
@@ -136,7 +136,7 @@ public class ArrayAdapter {
 	 * @param i2 the second index
 	 * @param i3 the third index
 	 * @return the element value, as a double
-	 * @throws IOException 
+	 * @throws IOException an exception
 	 */
 	public double getDouble(int i1, int i2, int i3) throws IOException {
 		return getDouble(new int[] {i1, i2, i3});
@@ -147,7 +147,7 @@ public class ArrayAdapter {
 	 * 
 	 * @param position the indices of the element
 	 * @return the value of the element, as an int
-	 * @throws IOException 
+	 * @throws IOException an exception
 	 */
 	public int getInt(int[] position) throws IOException {
 		checkDimensions(position);
@@ -160,7 +160,7 @@ public class ArrayAdapter {
 	 * 
 	 * @param position the indices of the element
 	 * @return the value of the element, as a long
-	 * @throws IOException 
+	 * @throws IOException an exception
 	 */
 	public long getLong(int[] position) throws IOException {
 		checkDimensions(position);
@@ -173,7 +173,7 @@ public class ArrayAdapter {
 	 * 
 	 * @param position the indices of the element
 	 * @return the value of the element, as a double
-	 * @throws IOException 
+	 * @throws IOException an exception
 	 */
 	public double getDouble(int[] position) throws IOException {
 		checkDimensions(position);
@@ -236,10 +236,8 @@ public class ArrayAdapter {
 	   * Get the buffer.
 	   * 
 	   * @param index The position of where to get the data.
-	   * 
 	   * @return The ByteBuffer.
-	   * 
-	   * @throws IOException
+	   * @throws IOException an exception
 	   */
 	  public ByteBuffer getBuffer(long index) throws IOException {
 	    ByteBuffer buf = null;
@@ -268,12 +266,9 @@ public class ArrayAdapter {
 	  
 	  /**
 	   * Creates a new buffer starting from the given index.
-	   * 
 	   * @param index The position of where to start creating the buffer.
-	   * 
 	   * @return A ByteBuffer that starts from the given index.
-	   * 
-	   * @throws IOException
+	   * @throws IOException an exception
 	   */
 	  private ByteBuffer createNewBuffer(long index) throws IOException {
 	    channel.position(index);

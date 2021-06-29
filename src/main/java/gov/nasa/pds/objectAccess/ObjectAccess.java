@@ -113,7 +113,6 @@ public class ObjectAccess implements ObjectProvider {
 	 * @param archiveRoot the archive root path
 	 * @throws URISyntaxException 
 	 * @throws MalformedURLException 
-	 * @throws Exception
 	 */
 	public ObjectAccess(String archiveRoot) throws MalformedURLException, URISyntaxException {
 	  URL url = null;
@@ -133,7 +132,6 @@ public class ObjectAccess implements ObjectProvider {
    * @param archiveRoot the archive root path
    * @throws URISyntaxException 
    * @throws MalformedURLException 
-   * @throws Exception
    */
 	public ObjectAccess(File archiveRoot) throws MalformedURLException, URISyntaxException {
 	  this(archiveRoot.toURI().toURL());

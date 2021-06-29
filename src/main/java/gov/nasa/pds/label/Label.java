@@ -33,10 +33,12 @@ package gov.nasa.pds.label;
 import gov.nasa.arc.pds.xml.generated.Array;
 import gov.nasa.arc.pds.xml.generated.ByteStream;
 import gov.nasa.arc.pds.xml.generated.EncodedByteStream;
+import gov.nasa.arc.pds.xml.generated.FileAreaMetadata;
 import gov.nasa.arc.pds.xml.generated.FileAreaObservational;
 import gov.nasa.arc.pds.xml.generated.FileAreaObservationalSupplemental;
 import gov.nasa.arc.pds.xml.generated.ParsableByteStream;
 import gov.nasa.arc.pds.xml.generated.Product;
+import gov.nasa.arc.pds.xml.generated.ProductMetadataSupplemental;
 import gov.nasa.arc.pds.xml.generated.ProductObservational;
 import gov.nasa.arc.pds.xml.generated.TableBinary;
 import gov.nasa.arc.pds.xml.generated.TableCharacter;
@@ -205,13 +207,10 @@ public class Label {
 	 */
 	@SuppressWarnings("unchecked")
 	public <T extends DataObject> List<T> getObjects(Class<T> clazz) throws Exception {
-		if (!(genericProduct instanceof ProductObservational)) {
-			throw new ClassCastException("Only objects from Product_Observational labels are supported.");
-		}
-
 		// Find the subset of all objects that matches given class.
 		List<DataObject> subset = new ArrayList<DataObject>();
-		for (DataObject object : getObjects((ProductObservational) genericProduct)) {
+		
+		for (DataObject object : getDataObjects(genericProduct)) {
 			if (clazz.isAssignableFrom(object.getClass())) {
 				subset.add(object);
 			}
@@ -220,7 +219,31 @@ public class Label {
 		return (List<T>) subset;
 	}
 
-	private List<DataObject> getObjects(ProductObservational product) throws Exception {
+	
+	private List<DataObject> getDataObjects(Product product) throws Exception {
+	    if(product instanceof ProductObservational)
+	    {
+	        return getDataObjects((ProductObservational)product);
+	    }
+	    else if(product instanceof ProductMetadataSupplemental)
+        {
+            return getDataObjects((ProductMetadataSupplemental)product);
+        }
+	    else
+	    {
+	        throw new ClassCastException("Only objects from Product_Observational and "
+	                + "Product_Metadata_Supplemental labels are supported.");
+	    }
+	}
+	
+	
+	/**
+	 * Extract data objects from Product_Observational label
+	 * @param product Product_Observational label
+	 * @return a list of data objects
+	 * @throws Exception an exception
+	 */
+	private List<DataObject> getDataObjects(ProductObservational product) throws Exception {
 		List<DataObject> objects = new ArrayList<DataObject>();
 
 		for (FileAreaObservational fileArea : product.getFileAreaObservationals()) {
@@ -237,6 +260,32 @@ public class Label {
 		return objects;
 	}
 
+	
+	/**
+     * Extract data objects from Product_Metadata_Supplemental label
+     * @param product Product_Metadata_Supplemental label
+     * @return a list of data objects
+     * @throws Exception an exception
+	 */
+	private List<DataObject> getDataObjects(ProductMetadataSupplemental product) throws Exception {
+        List<DataObject> objects = new ArrayList<DataObject>();
+
+        FileAreaMetadata fileArea = product.getFileAreaMetadata();
+
+        if(fileArea.getTableCharacter() != null)
+        {
+            addObject(objects, fileArea.getFile(), fileArea.getTableCharacter());
+        }
+        
+        if(fileArea.getTableDelimited() != null)
+        {
+            addObject(objects, fileArea.getFile(), fileArea.getTableDelimited());
+        }
+
+        return objects;
+    }
+	
+	
 	private void addObject(Collection<DataObject> objects, gov.nasa.arc.pds.xml.generated.File file, ByteStream stream) throws Exception {
 		if (stream instanceof TableBinary) {
 			objects.add(makeTable(file, (TableBinary) stream));
